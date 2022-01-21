@@ -1,20 +1,15 @@
 from app import app 
-from flask import render_template
+from flask import render_template, redirect, url_for
 from app.forms import RegisterForm
 
 @app.route('/')
 def index():
-    my_name = 'Melissa'
-    return render_template('index.html', name=my_name)
-
-@app.route('/name')
-def name():
-    my_name= 'Melissa'
-    return f"Hello {my_name}"
+    return render_template('base.html')
 
 @app.route('/register', methods= ["GET", "POST"])
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
         print("FORM  HAS BEEN VLIDATED")
+        return redirect(url_for ('index.html'))
     return render_template('register.html', form=form)
